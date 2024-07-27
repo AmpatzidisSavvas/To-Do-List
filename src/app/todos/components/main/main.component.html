@@ -1,1 +1,5 @@
-<p>main works!</p>
+<section class="main">
+    <ul>
+        <div *ngFor="let todo of todoService.todoSig()">{{ todo.text}}</div>
+    </ul>
+</section>
