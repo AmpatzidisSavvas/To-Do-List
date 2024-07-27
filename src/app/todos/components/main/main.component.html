@@ -1,5 +1,5 @@
 <section class="main">
     <ul>
-        <div *ngFor="let todo of todoService.todoSig()">{{ todo.text}}</div>
+        <div *ngFor="let todo of visibleTodos()">{{ todo.text}}</div>
     </ul>
 </section>
