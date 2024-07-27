@@ -20,4 +20,8 @@ export class TodoService {
 
       this.todoSig.update( (todos) => [...todos, newTodo]);
     }
+
+    changeFilter(filterName: FilterEnum): void {
+      this.fiterSig.set(filterName);
+    }
 }
