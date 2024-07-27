@@ -2,15 +2,17 @@ import { Component, computed } from '@angular/core';
 import { TodoService } from '../../services/todo.service';
 import { CommonModule } from '@angular/common';
 import { FilterEnum } from '../../types/filter.enum';
+import { TodoComponent } from "../todo/todo.component";
 
 @Component({
   selector: 'app-todos-main',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, TodoComponent],
   templateUrl: './main.component.html',
 })
 export class MainComponent {
   
+  editingId: string | null = null;
 
   constructor(public todoService: TodoService) {}
 
@@ -26,5 +28,9 @@ export class MainComponent {
       return todos.filter((todo) => todo.isCompleted);
     }
     return todos;
-  })
+  });
+
+  setEditingId(editingId: string | null) {
+    this.editingId = editingId;
+  }
 }

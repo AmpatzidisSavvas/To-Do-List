@@ -1,5 +1,12 @@
 <section class="main">
     <ul>
-        <div *ngFor="let todo of visibleTodos()">{{ todo.text}}</div>
+
+        <app-todos-todo 
+            *ngFor="let todo of visibleTodos()" 
+            [todo]="todo"
+            [isEditing] = "editingId === todo.id"
+            (setEditingId)="setEditingId($event)"
+        ></app-todos-todo>
+
     </ul>
 </section>
