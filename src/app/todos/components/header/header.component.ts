@@ -1,28 +1,22 @@
-import { Component } from '@angular/core';
-import { TodoService } from '../../services/todo.service';
+import { Component, inject } from '@angular/core';
+import { TodosService } from '../../services/todos.service';
 
 @Component({
   selector: 'app-todos-header',
-  standalone: true,
-  imports: [],
   templateUrl: './header.component.html',
+  standalone: true,
 })
 export class HeaderComponent {
-  
+  todosService = inject(TodosService);
   text: string = '';
 
-  constructor( private toDoService: TodoService) {
-
-  }
-
-  changeText(event:Event): void {
+  changeText(event: Event): void {
     const target = event.target as HTMLInputElement;
-
     this.text = target.value;
   }
 
-  addTodo() {
-    this.toDoService.addTodo(this.text);
-    this.text= '';
+  addTodo(): void {
+    this.todosService.addTodo(this.text);
+    this.text = '';
   }
 }

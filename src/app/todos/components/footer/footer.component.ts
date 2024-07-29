@@ -1,33 +1,30 @@
-import { Component, computed } from '@angular/core';
-import { TodoService } from '../../services/todo.service';
-import { FilterEnum } from '../../types/filter.enum';
+import { Component, computed, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { TodosService } from '../../services/todos.service';
+import { FilterEnum } from '../../types/filter.enum';
 
 @Component({
   selector: 'app-todos-footer',
+  templateUrl: './footer.component.html',
   standalone: true,
   imports: [CommonModule],
-  templateUrl: './footer.component.html',
 })
 export class FooterComponent {
-  filterSig = this.todosService.fiterSig;
+  todosService = inject(TodosService);
+  filterSig = this.todosService.filterSig;
   filterEnum = FilterEnum;
-
   activeCount = computed(() => {
-    return this.todosService.todoSig().filter((todo) => !todo.isCompleted)
+    return this.todosService.todosSig().filter((todo) => !todo.isCompleted)
       .length;
   });
-
-  noTodosClass = computed(() => this.todosService.todoSig().length === 0);
-
+  noTodosClass = computed(() => this.todosService.todosSig().length === 0);
   itemsLeftText = computed(
     () => `item${this.activeCount() !== 1 ? 's' : ''} left`
   );
 
-  constructor(public todosService: TodoService) {}
-
   changeFilter(event: Event, filterName: FilterEnum): void {
     event.preventDefault();
     this.todosService.changeFilter(filterName);
+    console.log('after changeFilter', this.todosService.filterSig());
   }
 }
